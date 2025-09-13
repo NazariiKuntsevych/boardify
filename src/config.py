@@ -1,11 +1,18 @@
-import os
+from pydantic import SecretStr
+from pydantic_settings import BaseSettings
 
-DB_DRIVER = "mysql+aiomysql"
-DB_NAME = "boardify"
-DB_HOST = "0.0.0.0"
-DB_PORT = 3387
-DB_USER = os.environ.get("DB_USER")
-DB_PASSWORD = os.environ.get("DB_PORT")
 
-TOKEN_DURATION: int = 4 * 60 * 60  # 4 hours
-SECRET_KEY = os.environ.get("SECRET_KEY")
+class Settings(BaseSettings):
+    DB_DRIVER: str = "mysql+aiomysql"
+    DB_NAME: str = "boardify"
+    DB_HOST: str = "db"
+    DB_PORT: int = 3306
+    DB_USER: str
+    DB_PASSWORD: SecretStr
+
+    DEBUG: bool = False
+    TOKEN_DURATION: int = 4 * 60 * 60  # 4 hours
+    SECRET_KEY: SecretStr
+
+
+settings = Settings()
