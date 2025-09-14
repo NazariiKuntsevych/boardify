@@ -3,7 +3,8 @@ alembic==1.16.5
 fastapi==0.116.1
 fastapi-cli==0.0.11
 passlib==1.7.4
+PyJWT==2.10.1
 pydantic[email]==2.11.9
 pydantic-settings==2.10.1
-PyJWT==2.10.1
+ruff==0.13.0
 SQLAlchemy==2.0.43
