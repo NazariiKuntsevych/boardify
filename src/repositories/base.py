@@ -43,3 +43,8 @@ class Repository:
     async def delete(instance: ORMModel) -> None:
         async with get_session() as session:
             await session.delete(instance)
+
+    async def truncate(self) -> None:
+        async with get_session() as session:
+            for instance in await self.get(many=True):
+                await session.delete(instance)
