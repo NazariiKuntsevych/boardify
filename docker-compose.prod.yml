@@ -4,6 +4,8 @@ services:
     image: task_board_api
     environment:
       DEBUG: 0
+      DB_HOST: db
+      DB_PORT: 3306
     env_file:
       - .env
     ports:
@@ -15,11 +17,14 @@ services:
         sleep 5
         alembic upgrade head
         fastapi run src/main.py --host 0.0.0.0 --port 8005
+    depends_on:
+      - db
   db:
     container_name: task_board_db
     image: mysql:9.3.0
     environment:
       MYSQL_DATABASE: boardify
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
     env_file:
       - .env
     ports:
