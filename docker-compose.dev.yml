@@ -2,6 +2,7 @@ services:
   api:
     container_name: task_board_api
     image: task_board_api
+    build: .
     environment:
       DEBUG: 1
       DB_HOST: db
