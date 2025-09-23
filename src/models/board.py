@@ -15,3 +15,4 @@ class Board(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
 
     user = relationship("User", back_populates="boards")
+    tasks = relationship("Task", back_populates="board", passive_deletes=True)
