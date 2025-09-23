@@ -1,5 +1,5 @@
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
 
@@ -12,3 +12,5 @@ class User(Base):
     last_name: Mapped[str] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(50), unique=True)
     password: Mapped[str] = mapped_column(String(255))
+
+    boards = relationship("Board", back_populates="user", passive_deletes=True)
