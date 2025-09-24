@@ -6,6 +6,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 COPY pyproject.toml .
-RUN pip install .
+RUN pip install --editable .
 
 COPY . .
