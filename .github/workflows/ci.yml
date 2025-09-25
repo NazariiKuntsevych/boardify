@@ -1,4 +1,4 @@
-name: Linter
+name: Linter and tests
 
 on:
   pull_request:
@@ -25,3 +25,38 @@ jobs:
     - name: Run linter
       run: |
         ruff check .
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          cp .env.example .env
+
+      - name: Run MySQL
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: ./docker-compose.dev.yml
+          services: db
+          up-flags: --wait
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.13
+
+      - name: Install dependencies
+        run: |
+          pip install --editable .[dev]
+
+      - name: Run migrations
+        run: |
+          alembic upgrade head
+
+      - name: Run tests
+        run: |
+          python3 -m pytest
