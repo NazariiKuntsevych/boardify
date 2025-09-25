@@ -31,3 +31,4 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
         raise HTTPException(status_code=409, detail="Integrity database error")
     finally:
         await session.close()
+        await engine.dispose()
