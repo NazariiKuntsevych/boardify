@@ -12,8 +12,8 @@ class Settings(BaseSettings):
     DB_USER: str
     DB_PASSWORD: SecretStr
 
-    DEBUG: bool = True
     TOKEN_DURATION: int = 4 * 60 * 60  # 4 hours
+    DEBUG: bool
     SECRET_KEY: SecretStr
 
 

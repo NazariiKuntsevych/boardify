@@ -4,7 +4,6 @@ services:
     image: task_board_api
     build: .
     environment:
-      DEBUG: 1
       DB_HOST: db
       DB_PORT: 3306
     env_file:
