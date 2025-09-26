@@ -24,4 +24,4 @@ async def client() -> AsyncGenerator[AsyncClient, None]:
 
 def pytest_sessionstart(session: Session) -> None:
     if not settings.DEBUG:
-        raise RuntimeError("Refusing to run tests on non-local DB")
+        raise RuntimeError("Tests can only be run in debug mode")
