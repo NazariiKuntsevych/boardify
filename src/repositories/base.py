@@ -8,7 +8,7 @@ from ..database import get_session
 ORMModel = TypeVar("ORMModel", bound=DeclarativeBase)
 
 
-class NotFound(Exception):
+class NotFoundError(Exception):
     pass
 
 
@@ -33,7 +33,7 @@ class Repository(Generic[ORMModel]):
     async def retrieve(self, **filters) -> ORMModel:
         instance = await self.retrieve_or_none(**filters)
         if not instance:
-            raise NotFound
+            raise NotFoundError
         return instance
 
     async def list(self, **filters) -> list[ORMModel]:
@@ -49,7 +49,7 @@ class Repository(Generic[ORMModel]):
                 select(self.model).filter_by(**filters)
             )
             if not instance:
-                raise NotFound
+                raise NotFoundError
 
             for key, value in _data.items():
                 setattr(instance, key, value)
@@ -63,7 +63,7 @@ class Repository(Generic[ORMModel]):
                 select(self.model).filter_by(**filters)
             )
             if not instance:
-                raise NotFound
+                raise NotFoundError
 
             await session.delete(instance)
             await session.commit()

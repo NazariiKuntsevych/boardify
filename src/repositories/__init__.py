@@ -1,4 +1,4 @@
-from .base import NotFound, ORMModel, Repository
+from .base import NotFoundError, ORMModel, Repository
 from .board import repository as board_repository
 from .priority import repository as priority_repository
 from .status import repository as status_repository
@@ -7,7 +7,7 @@ from .user import repository as user_repository
 
 __all__ = [
     "ORMModel",
-    "NotFound",
+    "NotFoundError",
     "Repository",
     "board_repository",
     "priority_repository",
