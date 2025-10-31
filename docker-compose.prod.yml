@@ -1,0 +1,30 @@
+services:
+  api:
+    container_name: boardify_api
+    image: boardify_api
+    build: .
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+    env_file:
+      - .env
+    ports:
+      - "8005:8005"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sleep 5
+        fastapi run src/main.py --host 0.0.0.0 --port 8005
+    depends_on:
+      - db
+  db:
+    container_name: boardify_db
+    image: mysql:9.3.0
+    environment:
+      MYSQL_DATABASE: boardify
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    env_file:
+      - .env
+    ports:
+      - "3387:3306"
