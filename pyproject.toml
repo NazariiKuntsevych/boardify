@@ -24,6 +24,9 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "httpx==0.28.1",
+    "pytest==8.4.2",
+    "pytest-asyncio==1.2.0",
     "ruff==0.13.0",
 ]
 
@@ -63,3 +66,6 @@ ignore = [
     "ANN003",  # annotations for **kwargs
     "ANN204",  # return annotations for magic methods
 ]
+
+[tool.pytest.ini_options]
+addopts = "--verbose"

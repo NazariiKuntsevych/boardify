@@ -1,6 +1,6 @@
 from typing import Generic, Optional, Type, TypeVar
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import DeclarativeBase
 
 from ..database import get_session
@@ -66,4 +66,9 @@ class Repository(Generic[ORMModel]):
                 raise NotFoundError
 
             await session.delete(instance)
+            await session.commit()
+
+    async def clear(self) -> None:
+        async with get_session() as session:
+            await session.execute(delete(self.model))
             await session.commit()
